@@ -1,4 +1,4 @@
-RadioRec records the radio shows set by timer
+RadioRec records the radio shows directory from the Radiko server realtime or auto rec set by timer
 
 RadioRec has the following functions;
 
