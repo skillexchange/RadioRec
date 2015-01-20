@@ -1,127 +1,112 @@
 <?php
 
+header("Content-Type: text/html; charset=UTF-8");
+
+$header = file_get_contents('./header.html');
+$footer = file_get_contents('./footer.html');
+
 echo $header;
 
-// #timer setting
+// #set timer recording
 
 echo '<form action="" method="GET" class="form-horizontal">
 
-        <div class="control-group">
-          <label class="control-label" for="inputtag">Tag</label>
-          <div class="controls">
-            <input type="text" id="inputtag" name="tag" class="span3 search-query" placeholder="type tag">
-          </div>
-        </div>
-
         <div class="control-group"> 
-          <label class="control-label">From</label>
+
           <div class="controls">
 
-          <select name="y1" class="span1">';
-          for ($sy=2013; $sy>=1973; $sy--){
-            echo '<option>'.$sy.'</option>';
+          <p><input type="radio" name="frequency" value="weekly"><b>Weekly&nbsp;</b>
+          <input type="checkbox"name="sun">Sun&nbsp;  
+          <input type="checkbox"name="mon">Mon&nbsp;  
+          <input type="checkbox"name="tue">Tue&nbsp;  
+          <input type="checkbox"name="wed">Wed&nbsp;  
+          <input type="checkbox"name="thu">Thu&nbsp;  
+          <input type="checkbox"name="fri">Fri&nbsp;  
+          <input type="checkbox"name="sat">Sat&nbsp;  
+          <br>Starts at : 
+
+          <select name="t" class="span1">';
+          for ($t=0; $t<=24; $t++){
+            echo '<option>'.$t.'</option>';
+          }
+          echo '</select>
+ 
+          <select name="m" class="span1">';
+          for ($m=0; $m<=59; $m++){
+            echo '<option>'.$m.'</option>';
+          }
+          echo '</select>
+          </p>
+
+          <p><input type="radio" name="frequency" value="onetime"><b>One time&nbsp;</b>
+          <br>Starts at : 
+          <select name="y" class="span1">';
+          for ($y=2015; $y<=2017; $y++){
+            echo '<option>'.$y.'</option>';
           }   
           echo '</select>
     
-          <select name="m1" class="span1">';
-          for ($sm=1; $sm<=12; $sm++){
-            $sm=sprintf('%02d', $sm);
-            echo '<option>'.$sm.'</option>';
+          <select name="m" class="span1">';
+          for ($m=1; $m<=12; $m++){
+            $m=sprintf('%02d', $m);
+            echo '<option>'.$m.'</option>';
           }
           echo '</select>
     
-          <select name="d1" class="span1">';
-          for ($sd=1; $sd<=31; $sd++){
-            $sd=sprintf('%02d', $sd);
-            echo '<option>'.$sd.'</option>';
+          <select name="d" class="span1">';
+          for ($d=1; $d<=31; $d++){
+            $d=sprintf('%02d', $d);
+            echo '<option>'.$d.'</option>';
           }
           echo '</select>
-          
+ 
+          <select name="t" class="span1">';
+          for ($t=0; $t<=24; $t++){
+            echo '<option>'.$t.'</option>';
+          }
+          echo '</select>
+ 
+          <select name="m" class="span1">';
+          for ($m=0; $m<=59; $m++){
+            echo '<option>'.$m.'</option>';
+          }
+          echo '</select>
+          </p>
           </div>
-          </label>
-        </div>
 
-        <div class="control-group"> 
-          <label class="control-label">To</label>
+          <hr>
+
           <div class="controls">
-
-          <select name="y2" class="span1">';
-          for ($ey=2013; $ey>=1973; $ey--){
-            echo '<option>'.$ey.'</option>';
-          }   
-          echo '</select>
-    
-          <select name="m2" class="span1">';
-          for ($em=1; $em<=12; $em++){
-            $em=sprintf('%02d', $em);
-            echo '<option>'.$em.'</option>';
-          }
-          echo '</select>
-    
-          <select name="d2" class="span1">';
-          for ($ed=1; $ed<=31; $ed++){
-            $ed=sprintf('%02d', $ed);
-            echo '<option>'.$ed.'</option>';
-          }
-          echo '</select>
-          
+            <p>Duration : 
+            <input type="text" name="duration" class="span1">
+            (min)</p>
           </div>
-          </label>
-        </div>
+          <div class="controls">
+            <p>Channel : 
+            <select name="channel" class="span2">
+              <option>Inter FM</option>
+              <option>J-WAVE</option>
+            </p>
+          </div>
 
+          <div class="controls">
+            <p>
+              <input type="submit" value="submit" class="btn btn-primary btn-lg" role="button">
+            </p>
+          </div>
 
-<!--
-      <font>Start Date (yyyy/mm/dd)</font>
-      <input type="text" name="y1"><font>/</font> 
-      <input type="text" name="m1"><font>/</font> 
-      <input type="text" name="d1"><br> 
-      <font>End Date (yyyy/mm/dd)</font>
-      <input type="text" name="y2"><font>/</font>
-      <input type="text" name="m2"><font>/</font>
-      <input type="text" name="d2"><br> 
--->
-      <div class="control-group">
-        <div class="controls">
-          <button class="btn btn-primary" type="submit" value="submit">Search</button>
         </div>
-      </div>
      
       </form>';
 
-$request_tag = $_GET["tag"];
-$request_tag = urlencode($request_tag);
-// echo 'Tag: '.$request_tag.'<br>';
 
-$request_sdate = $_GET["y1"].$_GET["m1"].$_GET["d1"];
-$request_edate = $_GET["y2"].$_GET["m2"].$_GET["d2"];
-// echo 'Duration: '.$request_sdate.' ~ '.$request_edate.'<br>';
-
-date_default_timezone_set('Asia/Tokyo');
-$min_t = strtotime($request_sdate);
-$max_t = strtotime($request_edate);
-
-$f = file_get_contents('http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='.$apikey.'&tags='.$request_tag.'&min_taken_date='.$min_t.'&max_taken_date='.$max_t.'&format=json&nojsoncallback=1');
-
-// user_id me = 15275097@N00
-
-$f = json_decode($f, true);
-
-echo '<div class="control-group" align="center">
-        <div class="controls">';
-
-$i=1;
-foreach($f["photos"]["photo"] as $key1 => $val1){
-  echo '<img src = "http://farm'.$val1["farm"].'.staticflickr.com/'.$val1["server"].'/'.$val1["id"].'_'.$val1["secret"].'_m.jpg">';
-    if(($i%4)==0){
-      echo '<br>';
-    }
-  $i++;   
-}
-
-echo '</div>
-      </div>'; 
+// timer set format
+// min hour day month day of the week "~/rec_radiko.sh" channel "~/Dropbox/Radio" prefix
+// 00 8 * * 0 ~/rec_radiko.sh INT 183 ~/Dropbox/Radio WTF
+// 00 15 * * 1,2,3,4,5 ~/rec_radiko.sh INT 181 ~/Dropbox/Radio RSG
+// 00 23 * * 4 ~/rec_radiko.sh INT 61 ~/Dropbox/Radio KenRocks
+// 14 10 26 12 * ~/rec_radiko.sh INT 1 ~/Dropbox/Radio test
 
 echo $footer;
 
 ?>
-
