@@ -24,13 +24,15 @@
               <input type="checkbox" name="sat" value="6">Sat&nbsp; 
               </p>
               <p>Starts at : 
-              <select name="t" class="span1">';
-              for ($t=0; $t<=24; $t++){
-                echo '<option>'.$t.'</option>';
+              <select name="hour" class="span1">';
+              for ($h=0; $h<=23; $h++){
+                $h=sprintf('%02d', $h);
+                echo '<option>'.$h.'</option>';
               }
               echo '</select>
-              <select name="m" class="span1">';
+              <select name="min" class="span1">';
               for ($m=0; $m<=59; $m++){
+                $m=sprintf('%02d', $m);
                 echo '<option>'.$m.'</option>';
               }
               echo '</select>
@@ -40,31 +42,28 @@
               <p><input type="radio" name="frequency" value="onetime"><b>One time&nbsp;</b>
               </p>
               <p>Starts at : 
-              <select name="y" class="span1">';
-              for ($y=2015; $y<=2017; $y++){
-                echo '<option>'.$y.'</option>';
-              }   
-              echo '</select>
-              <select name="m" class="span1">';
-              for ($m=1; $m<=12; $m++){
-                $m=sprintf('%02d', $m);
-                echo '<option>'.$m.'</option>';
+              <select name="month" class="span1">';
+              for ($mo=1; $mo<=12; $mo++){
+                $mo=sprintf('%02d', $mo);
+                echo '<option>'.$mo.'</option>';
               }
               echo '</select>
-              <select name="d" class="span1">';
+              <select name="day" class="span1">';
               for ($d=1; $d<=31; $d++){
                 $d=sprintf('%02d', $d);
                 echo '<option>'.$d.'</option>';
               }
               echo '</select>
-              <select name="t" class="span1">';
-              for ($t=0; $t<=24; $t++){
-                echo '<option>'.$t.'</option>';
+              <select name="hour2" class="span1">';
+              for ($h2=0; $h2<=24; $h2++){
+                $h2=sprintf('%02d', $h2);
+                echo '<option>'.$h2.'</option>';
               }
               echo '</select>
-              <select name="m" class="span1">';
-              for ($m=0; $m<=59; $m++){
-                echo '<option>'.$m.'</option>';
+              <select name="min2" class="span1">';
+              for ($m2=0; $m2<=59; $m2++){
+                $m2=sprintf('%02d', $m2);
+                echo '<option>'.$m2.'</option>';
               }
               echo '</select>
               </p>
@@ -82,9 +81,9 @@
               </select>
               </p>
 
-              <p>Prefix : 
+              <p>File Name : 
               <input type="text" name="prefix" class="span1">
-              </p>
+              (prefix)</p>
   
               <input type="submit" value="submit" class="btn btn-primary" role="button">
 
