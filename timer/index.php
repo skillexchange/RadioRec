@@ -91,14 +91,14 @@
           </div>
        
         </form>';
-  
+
 // timer set format
 // min hour day month day of the week "~/rec_radiko.sh" channel "~/Dropbox/Radio" prefix
 // 00 8 * * 0 ~/rec_radiko.sh INT 183 ~/Dropbox/Radio WTF
 // 00 15 * * 1,2,3,4,5 ~/rec_radiko.sh INT 181 ~/Dropbox/Radio RSG
 // 00 23 * * 4 ~/rec_radiko.sh INT 61 ~/Dropbox/Radio KenRocks
 // 14 10 26 12 * ~/rec_radiko.sh INT 1 ~/Dropbox/Radio test
-  
+
   echo $footer;
 
 ?>
