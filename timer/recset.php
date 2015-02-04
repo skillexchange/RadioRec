@@ -37,7 +37,7 @@
       $dow = implode(",",$dow);
     }
     else {
-      array_push($dow, "*");
+      $dow = "*";
     }
   
     if ($_POST["frequency"] == "weekly"){
@@ -48,7 +48,7 @@
     }
   }
 
-  echo '<from action="confirmed.php" method="POST" class="form-horizontal"> 
+  echo '<form action="confirmed.php" method="POST" class="form-horizontal"> 
           <div class="control-group">
             <div class="controls">
               <p><b>crontab command : </b><br>

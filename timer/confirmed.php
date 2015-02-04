@@ -7,14 +7,17 @@
  
   echo $header;
 
+ 
   echo '<div class="control-group">
           <div class="controls">
             <p>Following command has been set in crontab : <br>
-            '.$recset.'</p>
+            '.$_POST["recset"].'</p>
           </div>
         </div>';
 
-  $crontext = fopen("recset.txt", "w");
+  $recset = $_POST["recset"];
+
+  $crontext = fopen("/etc/cron.d/recset", "w");
   fwrite($crontext, "$recset");
   fclose($crontext);
 
